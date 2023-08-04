@@ -33,7 +33,7 @@ export interface SteppedFormStep<STATE> {
     enableJumpToStep?: boolean;
     overrideBackButton?: React.ReactNode;
     overrideNextButton?: React.ReactNode;
-    disabledNextByTitle?: boolean;
+    disableNextByTitle?: boolean;
     element: (args: SteppedFormStepArgs<STATE>) => React.ReactNode;
 }
 /**

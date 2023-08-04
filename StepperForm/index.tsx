@@ -38,7 +38,7 @@ export interface SteppedFormStep<STATE> {
     enableJumpToStep?: boolean;
     overrideBackButton?: React.ReactNode;
     overrideNextButton?: React.ReactNode;
-    disabledNextByTitle?: boolean;
+    disableNextByTitle?: boolean;
     element: (args: SteppedFormStepArgs<STATE>) => React.ReactNode;
 }
 
@@ -199,14 +199,18 @@ export function StepperForm<STATE>(props: SteppedFormProps<STATE>) {
         (step, i) =>
         (
             <Step key={step.name} completed={i < currentStep} >
-                {steps[i].disableReturn && i < currentStep || i == currentStep || steps[i].disabledNextByTitle ? stepLabel(step.name, i) :
-                    (stepsInError.length > 0 && stepsInError.sort().reverse()[0] <= i ? stepLabel(step.name, i) :
-                        (steps[i].enableJumpToStep || i < currentStep || i == currentStep + 1 ? stepButton(step.name, i) : stepLabel(step.name, i)))
+                {
+                    (steps[i].disableReturn && i < currentStep)
+                        || i == currentStep
+                        || steps[i].disableNextByTitle
+                        || (stepsInError.length > 0 && stepsInError.sort().reverse()[0] <= i) ? stepLabel(step.name, i)
+                    || !(steps[i].enableJumpToStep || i < currentStep || i == currentStep + 1)
+                        :
+                        stepButton(step.name, i)
                 }
             </Step>
         )
     ), [steps, currentStep, stepsInError, setStepInternal]);
-
 
     let stepperPadding = stepperProps?.padding ?? "15px";
     let contentPadding = contentBoxProps?.padding ?? "15px";
