@@ -154,8 +154,6 @@ export function StepperForm<STATE>(props: SteppedFormProps<STATE>) {
         completeButtonContent
     } = props;
 
-
-
     if (steps.length == 0) {
         throw new Error("StagedForm must have at least one step");
     }
@@ -186,6 +184,7 @@ export function StepperForm<STATE>(props: SteppedFormProps<STATE>) {
             {name}
         </StepLabel>)
     };
+
     let stepButton = (name: string, i: number) => {
         return (<StepButton
             color="inherit"
@@ -193,7 +192,6 @@ export function StepperForm<STATE>(props: SteppedFormProps<STATE>) {
             {name}
         </StepButton>)
     };
-
 
     let stepComponents = useCallback(() => steps.map(
         (step, i) =>
