@@ -9,12 +9,31 @@ export interface SteppedFormStepArgs<STATE> {
     back: () => void;
     next: () => void;
 }
+/**
+ * A step in a SteppedForm
+ * @param name The name of the step
+ * @param disableReturn OPTIONAL default: false
+ * When true stops users from using the title as to come back to this step
+ * @param enableJumpToStep
+ * * OPTIONAL default: false
+ * * When true allows users to jump to this step from previous steps.
+ * * *Note: users can always click title when this is the next step. to disable see `disabledNextByTitle`*
+ * @param overrideBackButton OPTIONAL default: undefined
+ * Overrides the back button with the given element
+ * @param overrideNextButton OPTIONAL default: undefined
+ * Overrides the next button with the given element
+ * @param disabledNextByTitle OPTIONAL default: false
+ * When true disables using the title as a next button when this step is next
+ * @param element Function that returns the element to render for this step. see `SteppedFormStepArgs`
+ * for the arguments available to this function
+ */
 export interface SteppedFormStep<STATE> {
     name: string;
     disableReturn?: boolean;
     enableJumpToStep?: boolean;
     overrideBackButton?: React.ReactNode;
     overrideNextButton?: React.ReactNode;
+    disabledNextByTitle?: boolean;
     element: (args: SteppedFormStepArgs<STATE>) => React.ReactNode;
 }
 /**
@@ -36,6 +55,7 @@ export interface SteppedFormStep<STATE> {
  * @param backButtonContent Content for the back button
  * @param nextButtonContent Content for the next button
  * @param cancelButtonContent Content for the cancel button
+ * @param completeButtonContent Content for the complete button
  */
 export interface SteppedFormProps<STATE> {
     defaultState: STATE;

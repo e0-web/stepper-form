@@ -83,7 +83,7 @@ export function StepperForm(props) {
         return (_jsx(StepButton, __assign({ color: "inherit", onClick: function () { return setStepInternal(i); } }, { children: name }), void 0));
     };
     var stepComponents = useCallback(function () { return steps.map(function (step, i) {
-        return (_jsx(Step, __assign({ completed: i < currentStep }, { children: steps[i].disableReturn && i < currentStep || i == currentStep ? stepLabel(step.name, i) :
+        return (_jsx(Step, __assign({ completed: i < currentStep }, { children: steps[i].disableReturn && i < currentStep || i == currentStep || steps[i].disabledNextByTitle ? stepLabel(step.name, i) :
                 (stepsInError.length > 0 && stepsInError.sort().reverse()[0] <= i ? stepLabel(step.name, i) :
                     (steps[i].enableJumpToStep || i < currentStep || i == currentStep + 1 ? stepButton(step.name, i) : stepLabel(step.name, i))) }), step.name));
     }); }, [steps, currentStep, stepsInError, setStepInternal]);
